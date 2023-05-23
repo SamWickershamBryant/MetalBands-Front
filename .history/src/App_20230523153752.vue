@@ -1,10 +1,10 @@
 <script>
-import DataGraph from './components/DataGraph.vue'
+import Graph from './components/Graph.vue'
 import axios from 'axios'
 let url = 'https://cyzy36l9vd.execute-api.us-east-2.amazonaws.com/api'
 export default {
   components: {
-    DataGraph
+    Graph
   },
   data() {
     return {
@@ -81,7 +81,7 @@ export default {
     <button @click="nextPage" :disabled="currentPage >= pageCount - 1">Next</button>
     <p>{{ currentPage }}</p>
   </div>
-  <DataGraph :data='items'/>
+  <Graph :data='items'/>
 </template>
 
 
