@@ -81,7 +81,9 @@ export default {
     <button @click="nextPage" :disabled="currentPage >= pageCount - 1">Next</button>
     <p>{{ currentPage }}</p>
   </div>
+  <div id="graph">
   <DataGraph :data='items'/>
+</div>
 </template>
 
 
@@ -94,5 +96,10 @@ export default {
   color: #2c3e50;
   
 
+}
+#graph {
+  position:relative;
+  height:50%;
+  width:50%;
 }
 </style>
