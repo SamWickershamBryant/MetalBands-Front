@@ -1,6 +1,7 @@
 <script>
 import DataGraph from './components/DataGraph.vue'
 import axios from 'axios'
+import Papa from 'papaparse';
 let url = 'https://cyzy36l9vd.execute-api.us-east-2.amazonaws.com/api'
 export default {
   components: {
@@ -45,6 +46,27 @@ export default {
         this.currentPage--;
       }
     },
+    downloadCSV(data, filename) {
+      // Convert the row to a CSV string
+      const csvContent = Papa.unparse(data);
+
+      // Create a Blob object
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+
+      // Create a URL for the Blob object
+      const url = URL.createObjectURL(blob);
+
+      // Create an anchor element
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+
+      // Programmatically click the anchor element to trigger the download
+      a.click();
+
+      // Cleanup
+      URL.revokeObjectURL(url);
+    }
   }
 
 }
@@ -80,6 +102,7 @@ export default {
     <button @click="prevPage" :disabled="currentPage <= 0">Prev</button>
     <button @click="nextPage" :disabled="currentPage >= pageCount - 1">Next</button>
     <p>{{ currentPage }}</p>
+    <button @click="downloadCSV(items, 'mydata.csv')">DownloadCSV</button>
   </div>
   <div id="graph">
   <DataGraph :data='items'/>
@@ -100,6 +123,6 @@ export default {
 #graph {
   position:relative;
   height:50%;
-  width:60%;
+  width:50%;
 }
 </style>
