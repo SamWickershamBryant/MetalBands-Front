@@ -1,5 +1,5 @@
 <script>
-//metalbands
+//metalbands are lit
 import DataGraph from './components/DataGraph.vue'
 import axios from 'axios'
 import Papa from 'papaparse';
