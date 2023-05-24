@@ -12,7 +12,9 @@ export default {
       items: [], // to store the API response
       currentPage: 0,
       itemsPerPage: 20,
-      error: null // to store any error from the API
+      error: null, // to store any error from the API
+      currentSort: 'origin', // initial sort column
+      currentSortDir: 'asc' // initial sort direction
     }
   },
   async created() {
@@ -66,7 +68,33 @@ export default {
 
       // Cleanup
       URL.revokeObjectURL(url);
+    },
+    sortTable(column) {
+    // if the column being sorted is the same as the current sort column, reverse the sort direction
+    if(this.currentSort == column) {
+      this.currentSortDir = this.currentSortDir == 'asc' ? 'desc' : 'asc';
+    } else {
+      this.currentSort = column;
+      this.currentSortDir = 'asc';
     }
+
+    this.items.sort((a, b) => {
+      let modifier = 1;
+      if(this.currentSortDir === 'desc') modifier = -1;
+
+      // Check if the values are numeric
+      if (!isNaN(a[this.currentSort]) && !isNaN(b[this.currentSort])) {
+        // Convert to numbers and compare
+        return (a[this.currentSort] - b[this.currentSort]) * modifier;
+      } else {
+        // Compare as strings
+        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      }
+    });
+  }
+
   }
 
 }
@@ -78,13 +106,13 @@ export default {
     <table>
       <thead>
         <tr>
-          <th>Origin</th>
-          <th>Formed</th>
-          <th>Split</th>
-          <th>Band Name</th>
-          <th>ID</th>
-          <th>Fans</th>
-          <th>Style</th>
+          <th @click="sortTable('origin')">Origin</th>
+        <th @click="sortTable('formed')">Formed</th>
+        <th @click="sortTable('split')">Split</th>
+        <th @click="sortTable('band_name')">Band Name</th>
+        <th @click="sortTable('id')">ID</th>
+        <th @click="sortTable('fans')">Fans</th>
+        <th @click="sortTable('style')">Style</th>
         </tr>
       </thead>
       <tbody>
