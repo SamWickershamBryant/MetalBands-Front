@@ -100,6 +100,6 @@ export default {
 #graph {
   position:relative;
   height:50%;
-  width:50%;
+  width:60%;
 }
 </style>

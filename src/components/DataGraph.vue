@@ -1,6 +1,6 @@
 <template>
   
-  <Line :data="datas" :options="options" />
+  <Line ref="l" :data= "dta" :options="opt" />
 </template>
 
 <script>
@@ -30,6 +30,9 @@ ChartJS.register(
   Legend
 )
 
+
+     
+
 export default {
   name: 'App',
   props: {
@@ -41,9 +44,19 @@ export default {
   components: {
     Line
   },
-  data() {
-    var notcc= {
-      data: {
+  
+  data(){
+    var opt = {
+        responsive: true,
+        maintainAspectRatio: true,
+        animation:false,
+        stacked:false,
+        title: {
+          display:true,
+          text: 'metal bands thru the years'
+        }
+      }
+      var dta = {
         labels: this.yearsArray(),
         datasets: [
         {
@@ -63,37 +76,22 @@ export default {
             data: this.activelikefrfr()
           }
         ]
-      },
+      }
+      return {opt, dta}
+  },
 
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        animation:false,
-        stacked:false,
-        title: {
-          display:true,
-          text: 'metal bands thru the years'
-        }
-      }
-    }
-    return {datas:notcc.data, options:notcc.options}
+  mounted(){
+    
+    
+      
   },
-  watch:{
-    data:{
-      handler(){
-        this.datas.labels = this.yearsArray()
-        this.datas.datasets[0] = this.formations()
-        this.datas.datasets[1] = this.splitups()
-        this.datas.datasets[2] = this.activelikefrfr()
-      }
-    }
-  },
+  
   methods:{
     minMaxYears(){
       let years = this.data.filter(band => !isNaN(band.formed) && band.formed !== "-").map(band => parseInt(band.formed))
       console.log(years)
       let minYear = Math.min(...years)
-      let maxYear = Math.max(...years)
+      let maxYear = Math.max(...years)//
       return {minYear,maxYear}
     },
     yearsArray(){
@@ -101,7 +99,7 @@ export default {
       console.log(years)
       var arr = []
       for (var i = years.minYear; i <= 2020; i++){
-        console.log(i)
+       
         arr.push(i)
       }
       console.log(arr)
