@@ -102,7 +102,17 @@ export default {
 
 <template>
   <h1>Metal Bands Data</h1>
+  <button @click="downloadCSV(items, 'mydata.csv')">DownloadCSV</button>
+  
+  <div id="controls">
+  <p>Page {{ currentPage + 1}}</p>
   <div>
+  <button @click="prevPage" :disabled="currentPage <= 0">Prev</button>
+    <button @click="nextPage" :disabled="currentPage >= pageCount - 1">Next</button>
+  </div>
+</div>
+  <div>
+    <div class="container">
     <table>
       <thead>
         <tr>
@@ -127,13 +137,14 @@ export default {
         </tr>
       </tbody>
     </table>
-    <button @click="prevPage" :disabled="currentPage <= 0">Prev</button>
-    <button @click="nextPage" :disabled="currentPage >= pageCount - 1">Next</button>
-    <p>{{ currentPage }}</p>
-    <button @click="downloadCSV(items, 'mydata.csv')">DownloadCSV</button>
+  
+    
+    
+    
   </div>
   <div id="graph">
   <DataGraph :data='items'/>
+</div>
 </div>
 </template>
 
@@ -143,14 +154,58 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+
   color: #2c3e50;
   
 
 }
-#graph {
-  position:relative;
-  height:50%;
-  width:50%;
+#controls {
+  display:flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  padding-top:10px;
+  padding-bottom:10px;
+  gap:10px;
+  align-items: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container > div {
+  flex: 1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+#graph {
+  height:100%;
+  width:100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
 </style>
