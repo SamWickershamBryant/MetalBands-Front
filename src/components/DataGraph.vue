@@ -1,6 +1,6 @@
 <template>
   
-  <Line ref="l" :data= "dta" :options="opt" />
+  <Line ref="l" :data= "chartData" :options="opt" />
 </template>
 
 <script>
@@ -78,6 +78,31 @@ export default {
         ]
       }
       return {opt, dta}
+  },
+  computed:{
+    chartData(){
+      return {
+        labels: this.yearsArray(),
+        datasets: [
+        {
+          label: 'Band Formations',
+          backgroundColor: '#f00000',
+          data: this.formations()
+          },
+          {
+            label: 'Band Split Ups',
+            backgroundColor: '#c7d898',
+            data: this.splitups()
+
+          },
+          {
+            label: 'Active Bands',
+            backgroundColor: '#7fffd4',
+            data: this.activelikefrfr()
+          }
+        ]
+      }
+    }
   },
 
   mounted(){
