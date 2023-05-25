@@ -10,3 +10,5 @@ describe('HelloWorld.vue', () => {
     expect(wrapper.text()).toMatch(msg)
   })
 })
+
+//vue add unit-jest

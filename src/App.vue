@@ -1,9 +1,11 @@
 <script>
 //metalbands are lit
 import DataGraph from './components/DataGraph.vue'
-import axios from 'axios'
+
 import Papa from 'papaparse';
-let url = 'https://cyzy36l9vd.execute-api.us-east-2.amazonaws.com/api'
+
+import { fetchData } from './data';
+
 export default {
   components: {
     DataGraph
@@ -19,7 +21,12 @@ export default {
     }
   },
   async created() {
-    await this.fetchData()
+    let result = await fetchData()
+    if (result.status == 'ok'){
+      this.items = result.data
+    }else{
+      this.error = result.data
+    }
   },
   computed: {
     pageCount() {
@@ -34,14 +41,8 @@ export default {
     },
   },
   methods:{
-    async fetchData(){
-      try {
-      const response = await axios.get(url + '/metalbands');
-      this.items = response.data;
-    } catch (error) {
-      this.error = error;
-    }
-    },
+    
+    
     nextPage(){
       if (this.currentPage < this.pageCount - 1){
         this.currentPage++
@@ -52,13 +53,15 @@ export default {
         this.currentPage--;
       }
     },
-    downloadCSV(data, filename) {
+    createParse(data=this.items){
       // Convert the row to a CSV string
       const csvContent = Papa.unparse(data);
-
-      // Create a Blob object
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-
+      return csvContent
+    
+    },
+    downloadCSV(data, filename) {
+      
+      const blob = new Blob([this.createParse(data)], {type: 'text/csv'})
       // Create a URL for the Blob object
       const url = URL.createObjectURL(blob);
 

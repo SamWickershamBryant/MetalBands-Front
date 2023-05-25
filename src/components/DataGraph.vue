@@ -114,20 +114,20 @@ export default {
   methods:{
     minMaxYears(){
       let years = this.data.filter(band => !isNaN(band.formed) && band.formed !== "-").map(band => parseInt(band.formed))
-      console.log(years)
+     
       let minYear = Math.min(...years)
       let maxYear = Math.max(...years)//
       return {minYear,maxYear}
     },
     yearsArray(){
       let years = this.minMaxYears()
-      console.log(years)
+     
       var arr = []
       for (var i = years.minYear; i <= 2020; i++){
        
         arr.push(i)
       }
-      console.log(arr)
+  
       return arr
     },
     formations(){
