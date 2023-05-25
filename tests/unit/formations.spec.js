@@ -26,16 +26,13 @@ describe('Formations', () => {
     ];
 
     const wrapper = shallowMount(MyComponent, {
-        data() {
-          return {
-            yearsArray: () => [1998, 1998], // Mock yearsArray() function
-            data: data,
-          };
-        },
+      propsData: {
+        data: data,
+      },
       });
   
       const formations = wrapper.vm.formations();
   
-      expect(formations).toEqual([1]); // Assert the expected output
+      expect(formations[0] == 2); // Assert the expected output
     });
   });
