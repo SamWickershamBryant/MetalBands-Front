@@ -4,38 +4,32 @@ import MyComponent from '@/components/DataGraph.vue';
 describe('Active', () => {
   it('returns correct active bands count for each year', () => {
     const data = [
-      {
-        origin: 'USA',
-        formed: '1998',
-        split: '2000',
-        band_name: 'Black Label Society',
-        id: '228',
-        fans: '424',
-        style: 'Heavy',
-      },
-      {
-        origin: 'USA',
-        formed: '1998',
-        split: '2000',
-        band_name: 'Black Label Society',
-        id: '228',
-        fans: '424',
-        style: 'Heavy',
-      }
-      // Add more test data as needed
+      {origin: 'USA',formed: '1998',split: '1999',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '1999',split: '2000',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2000',split: '2001',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2001',split: '2002',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2002',split: '2003',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2003',split: '2004',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2004',split: '2005',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2005',split: '2006',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2006',split: '2007',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2007',split: '2008',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2008',split: '2009',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2009',split: '2010',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2010',split: '2011',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2011',split: '2012',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      {origin: 'USA',formed: '2012',split: '2013',band_name: 'Black Label Society',id: '228',fans: '424',style: 'Heavy',},
+      
     ];
 
     const wrapper = shallowMount(MyComponent, {
-        data() {
-          return {
-            yearsArray: () => ['1998'], // Mock yearsArray() function
-            data: data,
-          };
-        },
+      propsData: {
+        data: data,
+      },
       });
   
       const activelikefrfr = wrapper.vm.activelikefrfr();
   
-      expect(activelikefrfr).toEqual([1]); // Assert the expected output
+      expect(activelikefrfr).toEqual([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]) // Assert the expected output
     });
   });
