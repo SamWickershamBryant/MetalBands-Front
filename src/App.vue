@@ -19,12 +19,7 @@ export default {
     }
   },
   async created() {
-    try {
-      const response = await axios.get(url + '/metalbands');
-      this.items = response.data;
-    } catch (error) {
-      this.error = error;
-    }
+    await this.fetchData()
   },
   computed: {
     pageCount() {
@@ -39,6 +34,14 @@ export default {
     },
   },
   methods:{
+    async fetchData(){
+      try {
+      const response = await axios.get(url + '/metalbands');
+      this.items = response.data;
+    } catch (error) {
+      this.error = error;
+    }
+    },
     nextPage(){
       if (this.currentPage < this.pageCount - 1){
         this.currentPage++
